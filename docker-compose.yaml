@@ -1,0 +1,37 @@
+version: "2.1"
+services:
+  db:
+    image: mysql/mysql-server
+    container_name: mysql
+    command: mysqld --user=root --verbose
+    ports:
+      - "3306:3306"
+      - "33060:33060"
+    volumes:
+      - ./mysql/database.sql:/tmp/database.sql
+      - ./mysql/import.sh:/tmp/import.sh
+    environment:
+      MYSQL_DATABASE: "defaultdb"
+      MYSQL_USER: "root"
+      MYSQL_PASSWORD: "abc123"
+      MYSQL_ROOT_PASSWORD: "abc123"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_ROOT_HOST: "172.17.0.3"
+      command: bash -c "/tmp/import.sh"
+      restart: always
+  php:
+    build: .
+    environment:
+      - DB_HOST=mysql
+    volumes:
+      - ./www:/var/www/html/
+    ports:
+          - "3000:80"
+    networks:
+            - default
+    depends_on:
+        db:
+             condition: service_healthy
+    links:
+      - db
+    restart: always
