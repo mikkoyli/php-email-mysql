@@ -12,11 +12,11 @@ if ($conn->connect_error) {
 } 
 
 // This is for security (escape variables)
-$email = mysqli_real_escape_string($conn, $_REQUEST['email']);
+$email = mysqli_real_escape_string($conn, $_POST['email']);
 
 // Validate email address
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    echo("$email is not a valid email address");
+    echo("Not a valid email address!");
   } else {
 
 $sql = "INSERT INTO emails (email) VALUES ('$email')";
@@ -24,7 +24,7 @@ $sql = "INSERT INTO emails (email) VALUES ('$email')";
 if ($conn->query($sql) === TRUE) {
     echo "Thank you! New email ".$email. " was added to database.";
 } else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
+    echo "Error: " . $sql . " " . $conn->error;
 }
 
 }
