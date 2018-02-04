@@ -8,7 +8,8 @@ $conn = new mysqli($server, $db_user, $db_pwd, $database);
 
 // Die in case connection fails
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    //die("Connection failed: " . $conn->connect_error);
+    die("Connection failed.");
 }
 
 // This is for security (escape variables)
@@ -24,7 +25,8 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     if ($conn->query($sql) === TRUE) {
         echo "Thank you! New email " . $email . " was added to database.";
     } else {
-        echo "Error: " . $sql . " " . $conn->error;
+        //echo "Error: " . $sql . " " . $conn->error;
+        echo "Error adding email to database.";
     }
     
 }
