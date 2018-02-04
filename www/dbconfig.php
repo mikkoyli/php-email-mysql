@@ -1,6 +1,6 @@
 <?php
-$server = "mysql";
-$db_user = "root";
-$db_pwd = "abc123";
+$server   = "mysql";
+$db_user  = "root";
+$db_pwd   = "abc123";
 $database = "defaultdb";
 ?>
