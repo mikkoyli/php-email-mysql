@@ -14,6 +14,8 @@ if ($conn->connect_error) {
 
 // This is for security (escape variables)
 $email = mysqli_real_escape_string($conn, $_POST['email']);
+//prevent xss
+$email = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
 
 // Validate email address
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
