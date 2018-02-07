@@ -23,11 +23,14 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 } else {
     
     $sql = "INSERT INTO emails (email) VALUES ('$email')";
-    
-    if ($conn->query($sql) === TRUE) {
+
+    $stmt = $conn->prepare('INSERT INTO emails (email) VALUES (?)');
+    $stmt->bind_param('s', $email); // 's' specifies the variable type => 'string'
+
+    if ($stmt->execute() == true) {
         echo "Thank you! New email " . $email . " was added to database.";
-    } else {
-        //echo "Error: " . $sql . " " . $conn->error;
+    }
+    else {
         echo "Error adding email to database.";
     }
     
