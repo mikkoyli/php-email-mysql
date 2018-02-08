@@ -21,8 +21,6 @@ $email = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     echo ("Not a valid email address!");
 } else {
-    
-    $sql = "INSERT INTO emails (email) VALUES ('$email')";
 
     $stmt = $conn->prepare('INSERT INTO emails (email) VALUES (?)');
     $stmt->bind_param('s', $email); // 's' specifies the variable type => 'string'
